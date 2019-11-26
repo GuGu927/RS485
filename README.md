@@ -1,8 +1,5 @@
-# RS485
-RS485 WallPad Python Script for Korean
-
-# 이름 : RS485 Compilation
-버전 : 1.0.2b
+# RS485 Compilation
+Version : 1.0.2b
 
 
 # 패치노트
