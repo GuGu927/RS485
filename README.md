@@ -3,7 +3,6 @@ RS485 Compilation
 Version : 1.0.2b
 ----------------
 
----  
 ## 패치노트
 ### Ver 1.0.2
 > 코콤) 패킷 분류작업 추가하여 패킷오류 시 로그출력하도록 함  
@@ -17,7 +16,7 @@ Version : 1.0.2b
 > 코콤) 환기팬 추가  
 ### Ver 1.0.0
 > 코콤(조명, 플러그, 난방, 환기, 가스, 엘레베이터) 지원  
-> 그렉스 환기장치 ([바닥열환기장치][grex_link]) 지원  
+> 그렉스 환기장치[바닥열환기장치][grex_link] 지원  
 ---  
 ## MQTT 명령어
 > ### topic : rs485/bridge/config/restart  
@@ -100,6 +99,54 @@ KOCOM_ROOM_THERMOSTAT       = {'00': 'livingroom', '01': 'bedroom', '02': 'room1
 SCAN_INTERVAL = 300         # 월패드의 상태값 조회 간격
 SCANNING_INTERVAL = 0.5     # 상태값 조회 시 패킷전송 간격
 ```
+---  
+# HomeAssistant 셋팅  
 
+## automation.yaml  
+```yaml
+- id: rs485_kocom_log_level
+  alias: RS485 Kocom Log Level
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_select.rs485_log_level
+      to: debug
+    - platform: state
+      entity_id: input_select.rs485_log_level
+      to: warn
+    - platform: state
+      entity_id: input_select.rs485_log_level
+      to: info
+    - platform: homeassistant
+      event: start
+  action:
+    - service: mqtt.publish
+      data:
+        payload_template: '{{ states(''input_select.rs485_log_level'') }}'
+        topic: rs485/bridge/config/log_level
+- id: rs485_restart
+  alias: RS485 Restart
+  initial_state: 'on'
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: mqtt.publish
+      data:
+        payload: 'true'
+        topic: rs485/bridge/config/restart
+```
+---  
+## input_boolean.yaml  
+```yaml
+rs485_log_level:
+  name: RS485 Log Level
+  options:
+   - debug
+   - info
+   - error
+  initial: info
+  icon: mdi:format-list-bulleted
+```
 
 [grex_link]: http://www.grex.co.kr/product-index/prd-a/
