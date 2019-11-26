@@ -1,11 +1,10 @@
 # RS485
 RS485 WallPad Python Script for Korean
 
-===================================================
 이름 : RS485 Compilation
 버전 : 1.0.2b
-===================================================
-===================================================
+
+
 패치노트
 Ver 1.0.2
 > 코콤) 패킷 분류작업 추가하여 패킷오류 시 로그출력하도록 함
@@ -20,8 +19,8 @@ Ver 1.0.1
 Ver 1.0.0
 > 코콤(조명, 플러그, 난방, 환기, 가스, 엘레베이터) 지원
 > 그렉스 환기장치(바닥열환기장치: 링크(http://www.grex.co.kr/product-index/prd-a/)) 지원
-===================================================
-===================================================
+
+
 MQTT 명령어
 topic : rs485/bridge/config/restart
 payload : none
@@ -46,8 +45,8 @@ payload : hexdata
 INFO:RS485:Message: rs485/bridge/config/packet = AA5530BC000E0001003A0000000000000000350D0D
 INFO:RS485:[From kocom]light/livingroom/state = {'light2': 'off', 'light1': 'off', 'light3': 'on'}
 INFO:RS485:[To HA]homeassistant/light/livingroom/state = {"light2": "off", "light1": "off", "light3": "on"}
-===================================================
-===================================================
+
+
 rs485.conf 파일 설명
 
 [RS485]
@@ -83,8 +82,8 @@ thermostat = True            // 난방 : True 혹은 False 대소문자 주의
 fan = False                     // 환기팬 : True 혹은 False 대소문자 주의
 gas = True                     // 가스 : True 혹은 False 대소문자 주의
 elevator = True               // 엘레베이터 : True 혹은 False 대소문자 주의
-===================================================
-===================================================
+
+
 rs485.py 스크립트 파일에서 수정할 항목
 
 # 보일러 초기값
